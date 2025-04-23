@@ -1,1 +1,3 @@
-console.log('hello mini-vue3')
+export { reactive } from '@vue/reactivity'
+
+
