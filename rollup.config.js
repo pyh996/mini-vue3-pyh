@@ -6,7 +6,7 @@ export default [{
     input: 'packages/vue/src/index.ts',
     output: [{
         sourcemap: true,
-        file: 'packages/vue/dist/vue.js',
+        file: 'packages/dist/vue.js',
         format: 'iife',
         name: 'Vue'
     }],
