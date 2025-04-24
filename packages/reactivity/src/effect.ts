@@ -1,5 +1,6 @@
 import { createDep, Dep } from './dep'
 import {  isArray } from '@vue/shared'
+import { ComputedRefImpl } from './computed'
 
 export type EffectScheduler = (...args: any[]) => any
 type KeyToDepMap = Map<any, Dep>
@@ -82,16 +83,12 @@ export function trigger(
 export function triggerEffects(dep: Dep) {
   // 把 dep 构建为一个数组
   const effects = isArray(dep) ? dep : [...dep]
-  // 依次触发
-  // for (const effect of effects) {
-  // 	triggerEffect(effect)
-  // }
 
   // 不在依次触发，而是先触发所有的计算属性依赖，再触发所有的非计算属性依赖
   for (const effect of effects) {
-    // if (effect.computed) {
-    //   triggerEffect(effect)
-    // }
+    if (effect.computed) {
+      triggerEffect(effect)
+    }
   }
   for (const effect of effects) {
     if (!effect.computed) {
@@ -130,7 +127,7 @@ export class ReactiveEffect<T = any> {
   /**
    * 存在该属性，则表示当前的 effect 为计算属性的 effect
    */
-  // computed?: ComputedRefImpl<T>
+  computed?: ComputedRefImpl<T>
 
   constructor(
     public fn: () => T,
