@@ -10,12 +10,18 @@ export const isArray = Array.isArray
 export const isObject = (val: unknown) =>
   val !== null && typeof val === 'object'
 
+
+/**
+ * 判断是否为一个 string
+ */
+export const isString = (val: unknown): val is string => typeof val === 'string'
+
+
 /**
  * 对比两个数据是否发生了改变
  */
 export const hasChanged = (value: any, oldValue: any): boolean =>
   !Object.is(value, oldValue)
-
 
 
 /**
